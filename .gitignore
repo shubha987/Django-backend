@@ -1,0 +1,32 @@
+# Django project files
+*.pyc
+*.pyo
+__pycache__/
+
+# Static files
+/static/
+/staticfiles/
+
+# Media files
+/media/
+
+# Virtual environment
+venv/
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Dependency directories
+node_modules/
+# Ignore debug log file
+debug.log
+
+# ignore turnserver file
+mysite/turnserver.conf.bak
+
+##ignore adminsdk.json
+mysite/adminsdk.json

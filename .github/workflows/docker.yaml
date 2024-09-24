@@ -1,0 +1,66 @@
+name: Build and Deploy to Google Cloud Run
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy-news:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Authenticate to Google Cloud (News)
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY_NEWS }}
+
+    - name: Set up Cloud SDK (News)
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID_NEWS }}
+
+    - name: Build Docker image (News)
+      run: |
+        gcloud auth configure-docker
+        docker build --target production -t gcr.io/news-88c9e/mysite:latest ./mysite
+
+    - name: Push Docker image (News)
+      run: |
+        docker push gcr.io/news-88c9e/mysite:latest
+
+    - name: Deploy to Cloud Run (News)
+      run: |
+        gcloud run deploy mysite --image gcr.io/news-88c9e/mysite:latest --region asia-south1 --platform managed --allow-unauthenticated
+        
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Build Docker image
+      run: |
+        gcloud auth configure-docker
+        docker build --target production -t  gcr.io/mldjango/mysite:latest ./mysite
+
+    - name: Push Docker image
+      run: |
+        docker push gcr.io/mldjango/mysite:latest
+
+    - name: Deploy to Cloud Run
+      run: |
+         gcloud run deploy mysite --image gcr.io/mldjango/mysite:latest --region asia-south1 --platform managed --allow-unauthenticated

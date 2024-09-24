@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compatibility Scores</title>
+</head>
+<body>
+    <h2>Compatibility Scores</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Top 10 Compatibility Scores</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user, top_scores in user_top_10.items %}
+            <tr>
+                <td>{{ user }}</td>
+                <td>
+                    <ul>
+                        {% for username, score in top_scores %}
+                        <li>{{ username }}: {{ score }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

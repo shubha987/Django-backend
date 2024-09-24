@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.offers {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.offer {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px;
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+}
+
+.flight-details, .return-flight-details {
+    margin-top: 10px;
+}
+
+.flight-details img, .return-flight-details img {
+    width: 30px;
+    height: auto;
+    vertical-align: middle;
+}
+
+.price-analysis {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 20px;
+}
